@@ -1,0 +1,7 @@
+{
+  "Nickname": "SkyVRaan Weather Patcher",
+  "Visibility": "Visible",
+  "OneLineDescription": "SkyVRaan Weather Patcher",
+  "LongDescription": "SkyVRaan is a mod for SkyrimVR that adds a cubemap to water in Skyrim, faking water reflections. This patcher creates a custom SkyVRaan cubemap patch for your load order. This replaces Cubemapenabler.esp and it's many patches!!!",
+  "PreferredAutoVersioning": "Default"
+}
