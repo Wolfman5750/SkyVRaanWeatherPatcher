@@ -291,6 +291,14 @@ namespace SkyVRaanWaterWeatherPatcher
                             CalcRGB[1] = Math.Min(Convert.ToInt32(CalcRGB[1]), 255);
                             CalcRGB[2] = Math.Min(Convert.ToInt32(CalcRGB[2]), 255);
 
+                            if(WTHROverride.EditorID.Contains("BlackreachWeather", StringComparison.OrdinalIgnoreCase))
+                            {
+                                CalcRGB[0] = 14;
+                                CalcRGB[1] = 156;
+                                CalcRGB[2] = 156;
+                            }
+
+                            
                             WTHROverride.WaterMultiplierColor[WhatTimeIsIt] = System.Drawing.Color.FromArgb(0, CalcRGB[0], CalcRGB[1], CalcRGB[2]);
 
                             Console.WriteLine($"Weather {WTHROverride.EditorID} Water Multiplier for {WhatTimeIsIt} changed from {WtrMultCol} to {WTHROverride.WaterMultiplierColor[WhatTimeIsIt]}");
