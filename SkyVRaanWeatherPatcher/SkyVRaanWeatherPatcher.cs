@@ -52,8 +52,8 @@ namespace SkyVRaanWaterWeatherPatcher
             //The following parameters allow for blending of different sky colors in different weather types at the different times of day.
             //These factors are meant to be a weighted average, and should add up to 1.0 for each time of day.
             //                             sunrise  day   sunset    night
-            var SkyBlendLower = new[]      { 0.4,   0.5,    0.1,    0.3 }; //Weight of Lower Sky Color
-            var SkyBlendUpper = new[]      { 0.0,   0.5,    0.1,    0.2 }; //Weight of Upper Sky Color
+            var SkyBlendLower = new[]      { 0.4,   0.25,    0.1,    0.3 }; //Weight of Lower Sky Color
+            var SkyBlendUpper = new[]      { 0.0,   0.75,    0.1,    0.2 }; //Weight of Upper Sky Color
             var SkyBlendHoriz = new[]      { 0.6,   0.0,    0.8,    0.5 }; //Weight of Horizon Color
             var SkyBlendCloud28 = new[]    { 0.0,   0.0,    0.0,    0.0 }; //Weight of Cloud Layer 28 Color
             var SkyBlendExistMult = new[]  { 0.0,   0.0,    0.0,    0.0 }; //Weight of existing Water Multiplier
@@ -291,7 +291,7 @@ namespace SkyVRaanWaterWeatherPatcher
                             CalcRGB[1] = Math.Min(Convert.ToInt32(CalcRGB[1]), 255);
                             CalcRGB[2] = Math.Min(Convert.ToInt32(CalcRGB[2]), 255);
 
-                            if(WTHROverride.EditorID.Contains("BlackreachWeather", StringComparison.OrdinalIgnoreCase))
+                            if(WTHROverride.EditorID != null && WTHROverride.EditorID.Contains("BlackreachWeather", StringComparison.OrdinalIgnoreCase))
                             {
                                 CalcRGB[0] = 14;
                                 CalcRGB[1] = 156;
