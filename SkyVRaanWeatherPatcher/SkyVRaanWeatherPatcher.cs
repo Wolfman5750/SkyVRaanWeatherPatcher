@@ -238,7 +238,7 @@ namespace SkyVRaanWaterWeatherPatcher
                                                          ColorShift[2][Convert.ToInt32(WhatTimeIsIt)]);
                         }
 
-                        if (CalcRGB[0] + CalcRGB[1] + CalcRGB[2] > 0)
+                        if (CalcRGB[0] + CalcRGB[1] + CalcRGB[2] >= 0)
                         {
 
                             //Adjust Saturation
@@ -291,7 +291,7 @@ namespace SkyVRaanWaterWeatherPatcher
                             CalcRGB[1] = Math.Min(Convert.ToInt32(CalcRGB[1]), 255);
                             CalcRGB[2] = Math.Min(Convert.ToInt32(CalcRGB[2]), 255);
 
-                            if(WTHROverride.EditorID != null && WTHROverride.EditorID.Contains("BlackreachWeather", StringComparison.OrdinalIgnoreCase))
+                            if(WTHROverride.FormKey==Skyrim.Weather.BlackreachWeather)
                             {
                                 CalcRGB[0] = 14;
                                 CalcRGB[1] = 156;
