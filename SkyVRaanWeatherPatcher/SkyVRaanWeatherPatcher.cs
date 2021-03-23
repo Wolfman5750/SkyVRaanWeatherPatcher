@@ -5,31 +5,25 @@ using Mutagen.Bethesda.Synthesis;
 using System;
 using System.Collections.Generic;
 using Noggog;
+using System.Threading.Tasks;
 
 namespace SkyVRaanWaterWeatherPatcher
 {
     public class SkyVRaanWeatherPatcher
     {
-        public static int Main(string[] args)
+        public static Task<int> Main(string[] args)
         {
-            return SynthesisPipeline.Instance.Patch<ISkyrimMod, ISkyrimModGetter>(
-                args: args,
-                patcher: RunPatch,
-                new UserPreferences()
+
+            return SynthesisPipeline.Instance
+                .AddPatch<ISkyrimMod, ISkyrimModGetter>(RunPatch, new PatcherPreferences()
                 {
                     AddImplicitMasters = false,
-                    //IncludeDisabledMods = true,
-                    ActionsForEmptyArgs = new RunDefaultPatcher
-                    {
-                        
-                        IdentifyingModKey = "SkyVRaanWeatherPatcher.esp",
-                        TargetRelease = GameRelease.SkyrimSE
-                    }
-                }
-            );
+                })
+                .SetTypicalOpen(GameRelease.SkyrimSE, "SkyVRaanWeatherPatcher.esp")
+                .Run(args);
         }
 
-        public static void RunPatch(SynthesisState<ISkyrimMod, ISkyrimModGetter> state)
+    public static void RunPatch(IPatcherState<ISkyrimMod, ISkyrimModGetter> state)
         {
             var WTHRCounter = 0;
 
@@ -92,7 +86,7 @@ namespace SkyVRaanWaterWeatherPatcher
                 new[]                      { 0,     0,      0,      0 }  //B
             };
 
-            var WeatherBlacklist = new HashSet<FormKey>
+            var WeatherBlacklist = new HashSet<IFormLinkGetter<IWeatherGetter>>
             {
                 //*********************************************************
                 //** Formkeys included in this blacklist will be skipped **
@@ -122,9 +116,9 @@ namespace SkyVRaanWaterWeatherPatcher
 
             Console.WriteLine($"Patching Weather ...");
 
-            foreach (var WTHRContext in state.LoadOrder.PriorityOrder.Weather().WinningContextOverrides(state.LinkCache))
+            foreach (var WTHRContext in state.LoadOrder.PriorityOrder.Weather().WinningContextOverrides())
             {
-                if (!WeatherBlacklist.Contains(WTHRContext.Record.FormKey))
+                if (!WeatherBlacklist.Contains(WTHRContext.Record))
                 {
                     var WTHROverride = WTHRContext.GetOrAddAsOverride(state.PatchMod);
 
@@ -291,7 +285,7 @@ namespace SkyVRaanWaterWeatherPatcher
                             CalcRGB[1] = Math.Min(Convert.ToInt32(CalcRGB[1]), 255);
                             CalcRGB[2] = Math.Min(Convert.ToInt32(CalcRGB[2]), 255);
 
-                            if(WTHROverride.FormKey==Skyrim.Weather.BlackreachWeather)
+                            if(WTHROverride.Equals(Skyrim.Weather.BlackreachWeather))
                             {
                                 CalcRGB[0] = 14;
                                 CalcRGB[1] = 156;

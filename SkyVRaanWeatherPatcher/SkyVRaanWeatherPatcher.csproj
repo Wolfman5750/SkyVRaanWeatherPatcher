@@ -2,15 +2,16 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Authors>Wolfman5750</Authors>
     <Platforms>AnyCPU;x86;x64</Platforms>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Mutagen.Bethesda" Version="0.23.5" />
-    <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSE" Version="1.0.0" />
-    <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.13.2" />
+    <PackageReference Include="Mutagen.Bethesda" Version="0.27.3" />
+    <PackageReference Include="Mutagen.Bethesda.FormKeys.SkyrimSE" Version="2.0.0" />
+    <PackageReference Include="Mutagen.Bethesda.Synthesis" Version="0.17.3" />
   </ItemGroup>
 
 </Project>
